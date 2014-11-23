@@ -30,7 +30,8 @@ module.exports = {
             "text/html",
             "application/xhtml+xml",
             "application/xml"
-        ]
+        ],
+        logLevel: 'error'
     },
     categories: {
         64: "myszki",
