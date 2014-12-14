@@ -1,0 +1,24 @@
+{
+  "name": "pjwstk-cms-pcbuilder-scraper",
+  "version": "0.0.1",
+  "description": "pjwstk-cms-pcbuilder ====================",
+  "main": "crawl.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/f1ames/pjwstk-cms-pcbuilder.git"
+  },
+  "author": "f1ames <krzysztof@krzton.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/f1ames/pjwstk-cms-pcbuilder/issues"
+  },
+  "homepage": "https://github.com/f1ames/pjwstk-cms-pcbuilder",
+  "dependencies": {
+    "md5": "^1.0.0",
+    "plentiful-files": "0.x.x",
+    "roboto": "^0.8.2"
+  }
+}

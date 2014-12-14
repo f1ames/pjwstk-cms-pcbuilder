@@ -33,6 +33,7 @@ module.exports = {
         ],
         logLevel: 'error'
     },
+    prefix: 'AGI',
     categories: {
         64: "myszki",
         65: "klawiatury",
@@ -51,12 +52,6 @@ module.exports = {
         3005: "monitory"
     },
     parsers: {
-        url: function(response, $) {
-            return response.url;
-        },
-        title: function(response, $) {
-            return $("head title").text();
-        },
         description: function(response, $) {
             return $("#tabs .tabcontent").eq(0).children("div").eq(0).html();
         },
@@ -69,6 +64,9 @@ module.exports = {
                 images.push($(el).attr("href"));
             });
             return images;
+        },
+        domain: function(response, $) {
+            return 'agito.pl';
         }
     }
 };
