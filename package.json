@@ -17,8 +17,13 @@
   },
   "homepage": "https://github.com/f1ames/pjwstk-cms-pcbuilder",
   "dependencies": {
+    "cheerio": "^0.18.0",
+    "he": "^0.5.0",
+    "log": "^1.4.0",
     "md5": "^1.0.0",
     "plentiful-files": "0.x.x",
-    "roboto": "^0.8.2"
+    "roboto": "^0.8.2",
+    "trimmer": "^1.0.0",
+    "urlencode": "^0.2.0"
   }
 }

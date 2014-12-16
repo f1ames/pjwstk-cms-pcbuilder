@@ -23,9 +23,10 @@ module.exports = {
             "/707.html", "/707,p", "-707-", //ram
             "/3005.html", "=3005"           //monitory
         ],
-        maxDepth: 15,
-        requestDelay: 4,
+        maxDepth: 10,
+        requestDelay: 50,
         obeyRobotsTxt: false,
+        obeyNofollow: false,
         allowedContentTypes: [
             "text/html",
             "application/xhtml+xml",
@@ -34,6 +35,10 @@ module.exports = {
         logLevel: 'error'
     },
     prefix: 'AGI',
+    skipIfNoCategory: true,
+    isCurrentCategory: function(id, url, currentUrl) {
+        return url.indexOf('-' + id + '-') !== -1 || url.indexOf('=' + id) !== -1;
+    },
     categories: {
         64: "myszki",
         65: "klawiatury",
@@ -52,21 +57,28 @@ module.exports = {
         3005: "monitory"
     },
     parsers: {
-        description: function(response, $) {
-            return $("#tabs .tabcontent").eq(0).children("div").eq(0).html();
-        },
-        specs: function(response, $) {
-            return $("#tabs .tabcontent").eq(0).children("div").eq(1).html();
-        },
-        images: function(response, $) {
-            var images = [];
-            $('#thumbnail a[href*=265x310]').each(function(i, el) {
-                images.push($(el).attr("href"));
+        // description: function($body) {
+        //     return $body.find("#tabs .tabcontent").eq(0).children("div").eq(0).html();
+        // },
+        specs: function($body, $) {
+            var specs = [];
+            $body.find("#tabs .tabcontent").eq(0).children("div").eq(1).find("table tr").each(function(index, el) {
+                var $tds;
+                if(($tds = $(el).find("td")).length == 2) {
+                    specs.push([$tds.eq(0).text(), $tds.eq(1).text()]);
+                }
             });
-            return images;
+            return specs;
         },
-        domain: function(response, $) {
-            return 'agito.pl';
-        }
+        // images: function(response, $) {
+        //     var images = [];
+        //     $('#thumbnail a[href*=265x310]').each(function(i, el) {
+        //         images.push($(el).attr("href"));
+        //     });
+        //     return images;
+        // },
+        // domain: function(response, $) {
+        //     return 'agito.pl';
+        // }
     }
 };

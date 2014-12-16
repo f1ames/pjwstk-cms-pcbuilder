@@ -28,4 +28,4 @@ node_modules
 .lock-wscript
 
 # Storage folder
-_Storage
+storage
