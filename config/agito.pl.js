@@ -57,9 +57,12 @@ module.exports = {
         3005: "monitory"
     },
     parsers: {
-        // description: function($body) {
-        //     return $body.find("#tabs .tabcontent").eq(0).children("div").eq(0).html();
-        // },
+        descriptionTitle: function($body, $) {
+            return $body.find("#tabs .tabcontent").eq(0).children("div").eq(0).children("div").eq(0).text();
+        },
+        descriptionBody: function($body, $) {
+            return $body.find("#tabs .tabcontent").eq(0).children("div").eq(0).children("div").eq(1).text();
+        },
         specs: function($body, $) {
             var specs = [];
             $body.find("#tabs .tabcontent").eq(0).children("div").eq(1).find("table tr").each(function(index, el) {
@@ -70,15 +73,12 @@ module.exports = {
             });
             return specs;
         },
-        // images: function(response, $) {
-        //     var images = [];
-        //     $('#thumbnail a[href*=265x310]').each(function(i, el) {
-        //         images.push($(el).attr("href"));
-        //     });
-        //     return images;
-        // },
-        // domain: function(response, $) {
-        //     return 'agito.pl';
-        // }
+        images: function($body, $) {
+            var images = [];
+            $body.find('#thumbnail a[href*=265x310]').each(function(i, el) {
+                images.push($(el).attr("href"));
+            });
+            return images;
+        }
     }
 };

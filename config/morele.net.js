@@ -70,21 +70,28 @@ module.exports = {
         523: "monitory"
     },
     parsers: {
-        // description: function(response, $) {
-        //     return $("#tabs .tabcontent").eq(0).children("div").eq(0).html();
-        // },
-        // specs: function(response, $) {
-        //     return $("#tabs .tabcontent").eq(0).children("div").eq(1).html();
-        // },
-        // images: function(response, $) {
-        //     var images = [];
-        //     $('#thumbnail a[href*=265x310]').each(function(i, el) {
-        //         images.push($(el).attr("href"));
-        //     });
-        //     return images;
-        // },
-        // domain: function(response, $) {
-        //     return 'agito.pl';
-        // }
+        descriptionTitle: function($body, $) {
+            return $body.find('.product-name h1.name').text();
+        },
+        descriptionBody: function($body, $) {
+            return $body.find('.description .wc_desc').text();
+        },
+        specs: function($body, $) {
+            var specs = [];
+            $body.find("table.feature-info tr").each(function(index, el) {
+                var $tds;
+                if(($tds = $(el).find("td")).length == 2) {
+                    specs.push([$tds.eq(0).text(), $tds.eq(1).text()]);
+                }
+            });
+            return specs;
+        },
+        images: function($body, $) {
+            var images = [];
+            $body.find('.image-product > ul > li img').each(function(i, el) {
+                images.push($(el).attr("src"));
+            });
+            return images;
+        }
     }
 };
