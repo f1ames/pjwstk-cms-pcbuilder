@@ -56,6 +56,23 @@ module.exports = {
         707: "ram",
         3005: "monitory"
     },
+    categoriesNormalized: {
+        81: 1,
+        707: 2,
+        79: 3,
+        83: 4,
+        221: 5,
+        82: 6,
+        84: 7,
+        89: 8,
+        85: 9,
+        91: 10,
+        693: 11,
+        130: 12,
+        65: 13,
+        64: 14,
+        3005: 15
+    },
     parsers: {
         descriptionTitle: function($body, $) {
             return $body.find("#tabs .tabcontent").eq(0).children("div").eq(0).children("div").eq(0).text();

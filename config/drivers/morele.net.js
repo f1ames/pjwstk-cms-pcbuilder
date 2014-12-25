@@ -69,6 +69,23 @@ module.exports = {
         38: "ram",
         523: "monitory"
     },
+    categoriesNormalized: {
+        45: 1,
+        38: 2,
+        42: 3,
+        4: 4,
+        61: 5,
+        60: 6,
+        12: 7,
+        14: 8,
+        11: 9,
+        33: 10,
+        28: 11,
+        15: 12,
+        18: 13,
+        464: 14,
+        523: 15
+    },
     parsers: {
         descriptionTitle: function($body, $) {
             return $body.find('.product-name h1.name').text();
