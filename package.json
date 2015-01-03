@@ -23,6 +23,7 @@
     "md5": "^1.0.0",
     "plentiful-files": "0.x.x",
     "roboto": "^0.8.2",
+    "trim": "0.0.1",
     "trimmer": "^1.0.0",
     "urlencode": "^0.2.0"
   }

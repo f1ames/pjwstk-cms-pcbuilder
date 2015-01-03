@@ -1,3 +1,5 @@
+var commons = require('../commons.js'); 
+
 module.exports = {
     config: {
         startUrls: [
@@ -31,7 +33,13 @@ module.exports = {
             "/telefony",
             "/biuro",
             "/strefa-gracza",
-            "/strefa-gracza/"
+            "/strefa-gracza/",
+            "/produkt/",
+            "/rma_list/",
+            "/inventory/",
+            "/pokaz_pomoc/",
+            "/feedback/",
+            /,\d+O\d+\/\d+/gi
         ],
         maxDepth: 10,
         requestDelay: 50,
@@ -48,26 +56,13 @@ module.exports = {
     skipIfNoCategory: true,
     checkPath: true,
     isCurrentCategory: function(id, url, currentUrl) {
-        var path = currentUrl.split('.net/').pop();
-        return (url.indexOf('-' + id) !== -1 && url.split('/').length > 5)
+        var id = '' + id,
+            cid = url.substr(-(id.length + 1)); 
+            path = currentUrl.split('.net/').pop();
+
+        return (cid == ('-' + id) || url.indexOf('-' + id + '/') !== -1)
+            && url.split('/').length > 5
             && (path.length > 20 && (path.match(/\//g) || []).length < 2);
-    },
-    categories: {
-        464: "myszki",
-        18: "klawiatury",
-        42: "plyty_glowne",
-        45: "procesory",
-        60: "chlodzenie",
-        4: "dyski_twarde",
-        12: "karty_graficzne",
-        11: "karty_dzwiekowe",
-        14: "karty_sieciowe",
-        15: "tunery_tv",
-        33: "obudowy",
-        61: "zasilacze",
-        28: "napedy",
-        38: "ram",
-        523: "monitory"
     },
     categoriesNormalized: {
         45: 1,
@@ -98,7 +93,8 @@ module.exports = {
             $body.find("table.feature-info tr").each(function(index, el) {
                 var $tds;
                 if(($tds = $(el).find("td")).length == 2) {
-                    specs.push([$tds.eq(0).text(), $tds.eq(1).text()]);
+                    specs.push([commons.cleanLine($tds.eq(0).text()), 
+                        commons.getLines($tds.eq(1))]);
                 }
             });
             return specs;
@@ -109,6 +105,9 @@ module.exports = {
                 images.push($(el).attr("src"));
             });
             return images;
+        },
+        price: function($body, $) {
+            return commons.parsePrice($body.find('.id-price .price span').text());
         }
     }
 };

@@ -1,3 +1,5 @@
+var commons = require('../commons.js');
+
 module.exports = {
     config: {
         startUrls: [
@@ -37,24 +39,10 @@ module.exports = {
     prefix: 'AGI',
     skipIfNoCategory: true,
     isCurrentCategory: function(id, url, currentUrl) {
-        return url.indexOf('-' + id + '-') !== -1 || url.indexOf('=' + id) !== -1;
-    },
-    categories: {
-        64: "myszki",
-        65: "klawiatury",
-        79: "plyty_glowne",
-        81: "procesory",
-        82: "chlodzenie",
-        83: "dyski_twarde",
-        84: "karty_graficzne",
-        85: "karty_dzwiekowe",
-        89: "karty_sieciowe",
-        130: "tunery_tv",
-        91: "obudowy",
-        221: "zasilacze",
-        693: "napedy",
-        707: "ram",
-        3005: "monitory"
+        var id = '' + id,
+            cid = url.substr(-(id.length + 1));        
+               
+        return url.indexOf('-' + id + '-') !== -1 || cid == ('=' + id);
     },
     categoriesNormalized: {
         81: 1,
@@ -85,7 +73,8 @@ module.exports = {
             $body.find("#tabs .tabcontent").eq(0).children("div").eq(1).find("table tr").each(function(index, el) {
                 var $tds;
                 if(($tds = $(el).find("td")).length == 2) {
-                    specs.push([$tds.eq(0).text(), $tds.eq(1).text()]);
+                    specs.push([commons.cleanLine($tds.eq(0).text()), 
+                        commons.getLines($tds.eq(1))]);
                 }
             });
             return specs;
@@ -96,6 +85,11 @@ module.exports = {
                 images.push($(el).attr("href"));
             });
             return images;
+        },
+        price: function($body, $) {
+            var regularPrice = $body.find('.productPrice .srp .priceStriked').text(),
+                currentPrice = $body.find('.productPrice .price .variantPrice').text();
+            return commons.parsePrice(currentPrice, regularPrice);
         }
     }
 };
