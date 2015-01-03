@@ -11,7 +11,7 @@ module.exports = {
         voltage: /(1|2)(\.|,)(\d{1,2})/gi,
         dimension: /^\s*(([123])(\.|,)(\d))/gi,
         interface: /(Serial)?\s*(ATA|SATA|eSATA|USB)\s*(\/?\d{3}|[23]|III|II)/gi,
-        graphic_socket: /(pci)(-e)?(xpress)?\s*(\d\.\d)*\s*(x\d+)*/gi
+        graphic_socket: /(pci|usb)(-e)?(xpress)?\s*(\d\.\d)*\s*(x\d+)*/gi
     },
     /**
     l - to lower
@@ -31,7 +31,7 @@ module.exports = {
         voltage: '{1}.{3}',
         dimension: '{2}.{4}',
         interface: '{1} {2U} {3n}',
-        graphic_socket: 'PCI{2u} {5}'
+        graphic_socket: '{1}{2u} {5}'
     },
     categories: {
         1: 'procesory',
@@ -73,11 +73,21 @@ module.exports = {
         7: [
             {regex: 'graphic_socket', label: 'Złącze'}
         ],
-        8: [],
-        9: [],
-        10: [],
-        11: [],
-        12: [],
+        8: [
+            {regex: 'graphic_socket', label: 'Złącze'}
+        ],
+        9: [
+            {regex: 'graphic_socket', label: 'Złącze'}
+        ],
+        10: [
+            {regex: 'box', label: 'Rozmiar'}
+        ],
+        11: [
+            {regex: 'interface', label: 'Interfejs'}
+        ],
+        12: [
+            {regex: 'interface', label: 'Interfejs'}
+        ],
         13: [],
         14: [],
         15: []
